@@ -32,34 +32,39 @@ class CourseBookingController extends Controller
      */
     public function store(Request $request)
     {
-        //yang dilempar adalah id orphanage
-        $courseBooking = Course::find($request->course_id)->courseBookings()->create([
-            'orphanage_id' => auth()->user()->orphanage->id,
-            'status' => 'pending',
-            'member_sum' => $request->member_sum,
-        ]);
-
-        if ($courseBooking) {
-            $courseBooking->transaction_id = Transaction::create([
-                'user_id' => $courseBooking->orphanage->user->id,
-                'amount' => $courseBooking->course->price_sum,
+        if (auth()->user()->money >= Course::find($request->course_id)->price_sum) {
+            $courseBooking = Course::find($request->course_id)->courseBookings()->create([
+                'orphanage_id' => auth()->user()->orphanage->id,
                 'status' => 'pending',
-                'description' => 'Pembayaran kursus oleh '.$courseBooking->orphanage->name,
-                'to_user_id' => $courseBooking->course->tutor->user->id,
-            ])->id;
-            $courseBooking->save();
-        }
-
-        $payment = $courseBooking->orphanage->user->update([
-            'money' => $courseBooking->orphanage->user->money - $courseBooking->course->price_sum,
-        ]);
-
-        if ($payment) {
-            return ['status' => 'Reservasi kursus berhasil!'];
-        } else {
-            return response([
-                'status' => 'Mohon maaf, sistem sedang erorr!',
+                'member_sum' => $request->member_sum,
             ]);
+
+            if ($courseBooking) {
+                $courseBooking->transaction_id = Transaction::create([
+                    'user_id' => $courseBooking->orphanage->user->id,
+                    'amount' => $courseBooking->course->price_sum,
+                    'status' => 'pending',
+                    'description' => 'Pembayaran kursus oleh '.$courseBooking->orphanage->name,
+                    'to_user_id' => $courseBooking->course->tutor->user->id,
+                ])->id;
+                $courseBooking->save();
+            }
+
+            $payment = $courseBooking->orphanage->user->update([
+                'money' => $courseBooking->orphanage->user->money - $courseBooking->course->price_sum,
+            ]);
+
+            if ($payment) {
+                return ['status' => 'Reservasi kursus berhasil!'];
+            } else {
+                return [
+                    'status' => 'Mohon maaf, sistem sedang erorr!',
+                ];
+            }
+        } else {
+            return [
+                'status' => 'Mohon maaf, saldo anda tidak cukup!',
+            ];
         }
     }
 
@@ -116,9 +121,9 @@ class CourseBookingController extends Controller
         if ($payment) {
             return ['status' => 'Reservasi berhasil dibatalkan!'];
         } else {
-            return response([
+            return [
                 'status' => 'Mohon maaf, sistem sedang erorr!',
-            ]);
+            ];
         }
     }
 
@@ -131,9 +136,9 @@ class CourseBookingController extends Controller
         if ($courseBooking) {
             return ['status' => 'Reservasi berhasil disetujui!'];
         } else {
-            return response([
+            return [
                 'status' => 'Mohon maaf, sistem sedang erorr!',
-            ]);
+            ];
         }
     }
 
@@ -156,9 +161,9 @@ class CourseBookingController extends Controller
         if ($payment) {
             return ['status' => 'Reservasi berhasil diakhiri!'];
         } else {
-            return response([
+            return [
                 'status' => 'Mohon maaf, sistem sedang erorr!',
-            ]);
+            ];
         }
     }
 }
