@@ -38,16 +38,23 @@ class RegisterController extends Controller
 
     private function newUser(array $data)
     {
-        $CreateUser = User::create([
+        if ($data['user_type'] == 'Tutor') {
+            $CreateUser = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'user_type' => $data['user_type'],
+            'user_type' => 'Tutor',
         ]);
 
-        if ($data['user_type'] == 'Tutor') {
             return $CreateUser->tutor()->create();
         } else {
+            $CreateUser = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'user_type' => 'Pengurus Panti',
+        ]);
+
             return $CreateUser->orphanage()->create();
         }
     }

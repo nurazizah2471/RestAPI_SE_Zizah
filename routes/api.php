@@ -25,7 +25,9 @@ Route::post('logout', [LoginController::class, 'logout'])->middleware('auth:api'
 Route::apiResource('skill', SkillController::class)->middleware('auth:api');
 Route::apiResource('course', CourseController::class)->middleware('auth:api');
 Route::apiResource('course-booking', CourseBookingController::class)->middleware('auth:api');
-Route::get('/course-booking/cancel/{id}', [CourseBookingController::class, 'cancel'])->middleware('auth:api');
-Route::get('/course-booking/approve/{id}', [CourseBookingController::class, 'approve'])->middleware('auth:api');
-Route::get('/course-booking/complete/{id}', [CourseBookingController::class, 'complete'])->middleware('auth:api');
+Route::get('course_booking_cancel/{id}', [CourseBookingController::class, 'cancel'])->middleware('auth:api');
+Route::get('course_booking_approve/{id}', [CourseBookingController::class, 'approve'])->middleware('auth:api');
+Route::get('course_booking_complete/{id}', [CourseBookingController::class, 'complete'])->middleware('auth:api');
 Route::apiResource('user', UserController::class)->middleware('auth:api');
+
+Route::get('course_from_skill/{id}', [CourseController::class, 'getCourseFromSkill'])->middleware('auth:api');

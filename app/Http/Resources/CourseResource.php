@@ -18,6 +18,7 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->id,
             'tutor' => $this->tutor,
+            'tutor_user' => $this->tutor->user,
             'skill' => $this->skill,
             'description' => $this->description,
             'location' => $this->location,
@@ -28,7 +29,7 @@ class CourseResource extends JsonResource
             'tool_description' => $this->tool_description,
             'start_time' => $this->start_time,
             'day' => $this->day,
-            'price_sum' => $this->price_Sum,
+            'price_sum' => $this->price_sum,
             'hour_sum' => $this->hour_sum,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

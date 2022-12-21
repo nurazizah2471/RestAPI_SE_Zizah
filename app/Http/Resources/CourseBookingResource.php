@@ -18,8 +18,12 @@ class CourseBookingResource extends JsonResource
         return [
             'id' => $this->id,
             'course' => $this->course,
+            'tutor' => $this->course->tutor,
+            'tutor_user' => $this->course->tutor->user,
+            'skill' => $this->course->skill,
             'transaction' => $this->transaction,
             'orphanage' => $this->orphanage,
+            'orphanage_user' => $this->orphanage->user,
             'status' => $this->status,
             'member_sum' => $this->member_sum,
             'created_at' => $this->created_at,

@@ -28,6 +28,7 @@ return new class () extends Migration {
             ->onDelete('cascade');
             $table->enum('status', ['pending', 'ongoing', 'complete', 'canceled']);
             $table->integer('member_sum')->default(1);
+            $table->string('location')->nullable();
             $table->timestamps();
         });
     }

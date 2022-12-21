@@ -23,7 +23,7 @@ return new class () extends Migration {
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->string('description')->nullable();
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->integer('is_online')->default(0);
             $table->integer('is_visit')->default(0);
             $table->integer('maximum_member')->default(1);

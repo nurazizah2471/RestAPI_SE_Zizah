@@ -23,6 +23,11 @@ class CourseBookingSeeder extends Seeder
         }
 
         foreach (CourseBooking::all() as $courseBooking) {
+            if ($courseBooking->location == null) {
+                $courseBooking->update([
+                    'location' => $courseBooking->orphanage->user->address,
+                ]);
+            }
             if ($courseBooking->status == 'ongoing') {
                 $status = 'complete'; // saldo PA berkurang
             } elseif ($courseBooking->status == 'canceled') {
