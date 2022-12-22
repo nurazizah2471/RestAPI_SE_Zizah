@@ -45,7 +45,7 @@ class CourseFactory extends Factory
             'is_online' => $is_online,
             'is_visit' => $is_visit,
             'maximum_member' => random_int(3, 20),
-            'tool_price' => $faker->randomElement([0, 20000, 300000, 250000, 40000, 25000]),
+            'tool_price' => $tool_price,
             'tool_description' => 'Peralatan terkait untuk menunjang kebutuhan murid',
             'start_time' => '09:00',
             'day' => $faker->randomElement(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']),
