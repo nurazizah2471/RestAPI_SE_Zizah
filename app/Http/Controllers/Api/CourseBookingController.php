@@ -23,10 +23,16 @@ class CourseBookingController extends Controller
     public function store(Request $request)
     {
         if (auth()->user()->money >= Course::find($request->course_id)->price_sum) {
+            if (Course::find($request->course_id)->is_visit == 1) {
+                $location = auth()->user()->address;
+            } else {
+                $location = Course::find($request->course_id)->location;
+            }
             $courseBooking = Course::find($request->course_id)->courseBookings()->create([
                 'orphanage_id' => auth()->user()->orphanage->id,
                 'status' => 'pending',
                 'member_sum' => $request->member_sum,
+                'location' => $location,
             ]);
 
             if ($courseBooking) {
