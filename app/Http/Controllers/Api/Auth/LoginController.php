@@ -32,7 +32,7 @@ class LoginController extends Controller
 
                 if ('1' == $check->is_active) {
                     if ('0' == $check->is_login) {
-                        $response = Http::asForm()->post('http://localhost:8012/semester5/seother/RestAPI_SE_Zizah/public/oauth/token', [
+                        $response = Http::asForm()->post('http://se.dorphan.archotech.site/oauth/token', [
                         'grant_type' => 'password',
                         'client_id' => $this->client->id,
                         'client_secret' => $this->client->secret,
@@ -98,7 +98,7 @@ class LoginController extends Controller
             'refresh_token' => 'refresh token is required',
         ]);
 
-        $response = Http::asForm()->post('http://localhost:8012/semester5/seother/RestAPI_SE_Zizah/public/oauth/token', [
+        $response = Http::asForm()->post('http://se.dorphan.archotech.site/oauth/token', [
             'grant_type' => 'refresh_token',
             'refresh_token' => $request->refresh_token,
             'client_id' => $this->client->id,
