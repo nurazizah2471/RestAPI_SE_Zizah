@@ -24,7 +24,7 @@ class CourseBookingSeeder extends Seeder
 
         foreach (CourseBooking::all() as $courseBooking) {
             if ($courseBooking->location == null) {
-                $courseBooking->update([
+                CourseBooking::where('id', $courseBooking->id)->update([
                     'location' => $courseBooking->orphanage->user->address,
                 ]);
             }

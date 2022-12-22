@@ -19,7 +19,7 @@ class CourseBookingController extends Controller
     public function index()
     {
         if (auth()->user()->user_type == 'Pengurus Panti') {
-            return ['result' => CourseBookingResource::collection(CourseBooking::where('orphanage_id', auth()->user()->orphanage->id)->get())];
+            return ['result' => CourseBookingResource::collection(CourseBooking::where('orphanage_id', auth()->user()->orphanage->id)->orderBy('created_at', 'desc')->get())];
         } elseif (auth()->user()->user_type == 'Tutor') {
             return ['result' => CourseBookingResource::collection(auth()->user()->tutor->courses->courseBookings)];
         }

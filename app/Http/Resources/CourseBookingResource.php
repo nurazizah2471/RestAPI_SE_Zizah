@@ -26,6 +26,7 @@ class CourseBookingResource extends JsonResource
             'orphanage_user' => $this->orphanage->user,
             'status' => $this->status,
             'member_sum' => $this->member_sum,
+            'location' => $this->location,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
