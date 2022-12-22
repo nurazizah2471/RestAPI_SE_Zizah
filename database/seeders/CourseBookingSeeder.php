@@ -39,7 +39,7 @@ class CourseBookingSeeder extends Seeder
             // transaction dari PA untuk bayar kursus
             $courseBooking->transaction_id = Transaction::create([
                 'user_id' => $courseBooking->orphanage->user->id,
-                'amount' => $courseBooking->course->hourly_price + $courseBooking->course->tool_price,
+                'amount' => $courseBooking->course->price_sum,
                 'status' => $status,
                 'description' => 'Pembayaran kursus oleh '.$courseBooking->orphanage->name,
                 'to_user_id' => $courseBooking->course->tutor->user->id,

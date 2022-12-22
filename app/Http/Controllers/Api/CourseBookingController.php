@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class CourseBookingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if (auth()->user()->user_type == 'Pengurus Panti') {
@@ -25,11 +20,6 @@ class CourseBookingController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if (auth()->user()->money >= Course::find($request->course_id)->price_sum) {
@@ -68,38 +58,9 @@ class CourseBookingController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         return ['result' => CourseBookingResource::collection(CourseBooking::where('id', $id)->get())];
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
     }
 
     public function cancel($id)

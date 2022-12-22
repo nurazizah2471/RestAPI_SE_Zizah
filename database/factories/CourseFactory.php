@@ -35,6 +35,9 @@ class CourseFactory extends Factory
             }
         }
 
+        $tool_price = $faker->randomElement([0, 20000, 300000, 250000, 40000, 25000]);
+        $price_sum = $tool_price + random_int(20000, 500000);
+
         return [
             'skill_id' => $faker->randomElement(Skill::all()->pluck('id')),
             'description' => 'Asah dan kembangkan melalui kursus ini!',
@@ -46,7 +49,7 @@ class CourseFactory extends Factory
             'tool_description' => 'Peralatan terkait untuk menunjang kebutuhan murid',
             'start_time' => '09:00',
             'day' => $faker->randomElement(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']),
-            'price_sum' => random_int(20000, 500000),
+            'price_sum' => $price_sum,
             'hour_sum' => random_int(1, 10),
         ];
     }
